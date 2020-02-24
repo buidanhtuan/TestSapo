@@ -13,7 +13,6 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener {
             var number1:Int = input1.text.toString().toInt()
             var number2:Int = input2.text.toString().toInt()
-
             var result:Int = number1 + number2
             output.text = result.toString()
         }

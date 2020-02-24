@@ -15,6 +15,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="50dp"
         android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:textSize="20sp"
         />
     <EditText
         android:id="@+id/input2"
@@ -25,6 +27,8 @@
         app:layout_constraintTop_toBottomOf="@id/input1"
         android:layout_margin="50dp"
         android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:textSize="20sp"
         />
     <Button
         android:id="@+id/button"
@@ -44,6 +48,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button"
         android:layout_margin="50dp"
+        android:textSize="20sp"
+        android:gravity="center"
         android:background="@color/colorPrimary"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
