@@ -9,6 +9,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main)
         button.setOnClickListener {
             var number1:Int = input1.text.toString().toInt()
             var number2:Int = input2.text.toString().toInt()

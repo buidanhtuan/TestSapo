@@ -25,11 +25,4 @@ class ExampleInstrumentedTest {
     fun onSetup() {
         ActivityScenario.launch(MainActivity::class.java)
     }
-    @Test
-    fun add() {
-        Espresso.onView(ViewMatchers.withId(R.id.button)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.textView))
-            .check(ViewAssertions.matches(ViewMatchers.withText("${input1.toInt() + input2.toInt()}")))
-        Espresso.onView(ViewMatchers.withId(R.id.button2)).perform(ViewActions.click())
-    }
 }

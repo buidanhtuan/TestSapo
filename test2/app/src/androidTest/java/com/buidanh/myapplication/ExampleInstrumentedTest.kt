@@ -1,12 +1,18 @@
 package com.buidanh.myapplication
 
+import android.view.View
+import android.widget.EditText
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.hamcrest.Description
+import org.hamcrest.Matcher
+import org.hamcrest.TypeSafeMatcher
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -34,10 +40,39 @@ class ExampleInstrumentedTest {
     }
 
     @Test
+    fun onCheckValueEditText() {
+        Espresso.onView(ViewMatchers.withId(R.id.input1))
+            .check(ViewAssertions.matches(isEditTextValueDouble()))
+        Espresso.onView(ViewMatchers.withId(R.id.input2))
+            .check(ViewAssertions.matches(isEditTextValueDouble()))
+    }
+
+    @Test
     fun add() {
         Espresso.onView(ViewMatchers.withId(R.id.button)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.textView))
             .check(ViewAssertions.matches(ViewMatchers.withText("${input1.toInt() + input2.toInt()}")))
         Espresso.onView(ViewMatchers.withId(R.id.button2)).perform(ViewActions.click())
+    }
+
+    private fun isEditTextValueDouble(): Matcher<View> {
+        return object : TypeSafeMatcher<View>() {
+            override fun describeTo(description: Description?) {
+            }
+
+            override fun matchesSafely(item: View?): Boolean {
+                if (item is EditText) {
+                    val value = item.text.toString()
+                    return try {
+                        value.toInt()
+                        true
+                    } catch (e: Exception) {
+                        false
+                    }
+                }
+                return false
+            }
+
+        }
     }
 }
