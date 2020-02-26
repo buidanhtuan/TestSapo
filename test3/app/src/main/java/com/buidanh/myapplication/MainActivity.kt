@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createAdapter(): UserAdapter {
-        return UserAdapter { view: View, user: User ->
+        return UserAdapter {user: User ->
             //TODO onClickListener
 //            Snackbar.make(view, user.toString(), Snackbar.LENGTH_LONG).show()
             val intent: Intent = Intent (this, Main2Activity::class.java)

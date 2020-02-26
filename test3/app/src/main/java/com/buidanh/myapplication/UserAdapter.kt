@@ -23,7 +23,7 @@ Có những phần không cần dùng em lại dùng
  */
 class UserAdapter(
     //I decided to create a functional interface instead of a new class.
-    val onClickItem: (view: View, user: User) -> Unit// chỉ nên truyền nhưng param thực sự cần dùng
+    val onClickItem: (user: User) -> Unit// chỉ nên truyền nhưng param thực sự cần dùng
 ) : ListAdapter<User, UserViewHolder>(UserDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -39,7 +39,7 @@ class UserAdapter(
     private fun createOnClickListener(user: User): View.OnClickListener {
         return View.OnClickListener { view ->
             //Here, We call the functional interface.
-            onClickItem(view, user)
+            onClickItem(user)
         }
     }
 }
@@ -51,8 +51,10 @@ class UserAdapter(
  * em có hiểu nó nghĩa là gì không
  */
 class UserDiffCallback : DiffUtil.ItemCallback<User>() {
-    override fun areItemsTheSame(oldItem: User, newItem: User): Boolean = oldItem.userId == newItem.userId
     override fun areContentsTheSame(oldItem: User, newItem: User): Boolean = oldItem.name == newItem.name
+    override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
 
 /**

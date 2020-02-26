@@ -5,6 +5,5 @@ package com.buidanh.myapplication
  *
  * @author Guilherme Biff Zarelli
  */
-class User(val userId: Int, val name: String) {
-    override fun toString() = "User(userId=$userId, name='$name')"
+class User(val name: String) {
 }
