@@ -13,6 +13,8 @@ import org.junit.runner.RunWith
 
 import org.junit.Assert.*
 import org.junit.Before
+import org.junit.runner.Description
+import java.util.regex.Matcher
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -25,4 +27,14 @@ class ExampleInstrumentedTest {
     fun onSetup() {
         ActivityScenario.launch(MainActivity::class.java)
     }
+    private fun isInTheMiddle(): Matcher<.ViewHolder> {
+        return object : TypeSafeMatcher<CustomAdapter.ViewHolder>() {
+            override fun matchesSafely(customHolder: CustomAdapter.ViewHolder): Boolean {
+                return customHolder.isInTheMiddle
+            }
+
+            override fun describeTo(description: Description) {
+                description.appendText("item in the middle")
+            }
+        }
 }
