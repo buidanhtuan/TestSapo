@@ -52,12 +52,12 @@ class ExampleInstrumentedTest {
     }
     @Test
     fun clickLastItem(){
+        val text = getChildValue(recycle_view,0)
         val count = getCountFromRecyclerView(recycle_view)-1
-        val text = getChildValue(recycle_view,count)
         Espresso.onView(ViewMatchers.withId(recycle_view)).
             perform(RecyclerViewActions.actionOnItemAtPosition
-            <RecyclerViewAdapter.RecyclerViewHolder>(count,ViewActions.click()))
-        Espresso.onView(ViewMatchers.withId(R.id.text)).check(ViewAssertions.matches(withText("item10")))
+            <RecyclerViewAdapter.RecyclerViewHolder>(count-1,ViewActions.click()))
+        Espresso.onView(ViewMatchers.withId(R.id.text)).check(ViewAssertions.matches(withText(text)))
     }
 
     fun getCountFromRecyclerView(RecyclerViewId: Int): Int {
@@ -82,8 +82,8 @@ class ExampleInstrumentedTest {
                 var view = viewItem.getChildAt(0)
                 var i = 0
                 while (view !is TextView){
-                    view = viewItem.getChildAt(i)
                     i++
+                    view = viewItem.getChildAt(i)
                 }
                 textItem = view.text.toString()
                 return true
