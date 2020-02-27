@@ -19,11 +19,7 @@ class MainActivity : AppCompatActivity() {
         ,Item( "item3")
         ,Item( "item4")
         ,Item( "item5")
-        ,Item( "item6")
-        ,Item( "item7")
-        ,Item( "item8")
-        ,Item( "item9")
-        ,Item( "item10"))
+        ,Item( "item6"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
