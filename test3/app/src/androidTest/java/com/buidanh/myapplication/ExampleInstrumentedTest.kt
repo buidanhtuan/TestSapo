@@ -2,6 +2,7 @@ package com.buidanh.myapplication
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
@@ -38,13 +39,13 @@ class ExampleInstrumentedTest {
     fun onSetup(){
         ActivityScenario.launch(MainActivity::class.java)
     }
-//    @Test
-//    fun clickFistItem(){
-//        Espresso.onView(ViewMatchers.withId(recycle_view)).
-//            perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerViewAdapter.RecyclerViewHolder>
-//                (0,ViewActions.click()))
-//        Espresso.onView(ViewMatchers.withId(text)).check(ViewAssertions.matches(ViewMatchers.withText(getChild(R.id.recycle_view, 0))))
-//    }
+    @Test
+    fun clickFistItem(){
+        Espresso.onView(ViewMatchers.withId(recycle_view)).
+            perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerViewAdapter.RecyclerViewHolder>
+                (0,ViewActions.click()))
+        Espresso.onView(ViewMatchers.withId(text)).check(ViewAssertions.matches(ViewMatchers.withText(getChild(R.id.recycle_view, 0))))
+    }
     @Test
     fun clickLastItem(){
         Espresso.onView(ViewMatchers.withId(recycle_view)).
@@ -72,7 +73,10 @@ class ExampleInstrumentedTest {
             override fun matchesSafely(v: View?): Boolean {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 val recycle = (v as RecyclerView)
-                textItem = recycle.getChildAt(position).toString()
+                //textItem = (recycle.layoutManager!!.findViewByPosition(position) as TextView).toString()
+                //textItem = recycle.getChildAt(position).transitionName
+                //textItem = recycle.layoutManager!!.getChildAt(position).toString()
+                textItem = (recycle.layoutManager!!.findViewByPosition(position) as TextView).text.toString()
             }
         }
         onView(ViewMatchers.withId(RecyclerViewId)).check(ViewAssertions.matches(matcher))
