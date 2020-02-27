@@ -3,6 +3,7 @@ package com.buidanh.myapplication
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
+import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
@@ -15,11 +16,13 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.runner.AndroidJUnit4
 import com.buidanh.myapplication.R.id.recycle_view
+import com.buidanh.myapplication.R.id.text
 import org.hamcrest.Description
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.regex.Matcher
 import java.util.regex.Pattern.matches
 
 
@@ -28,21 +31,20 @@ import java.util.regex.Pattern.matches
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
+@Suppress("UNREACHABLE_CODE")
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
     @Before
     fun onSetup(){
         ActivityScenario.launch(MainActivity::class.java)
     }
-    @Test
-    fun clickFistItem(){
-        Espresso.onView(ViewMatchers.withId(recycle_view)).
-            perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerViewAdapter.RecyclerViewHolder>
-                (0,ViewActions.click()))
-        val text = getChild(withId(R.id.recycle_view), 0).toString()
-        Espresso.onView(ViewMatchers.withId(R.id.text))
-            .check(ViewAssertions.matches(ViewMatchers.withText(text)))
-    }
+//    @Test
+//    fun clickFistItem(){
+//        Espresso.onView(ViewMatchers.withId(recycle_view)).
+//            perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerViewAdapter.RecyclerViewHolder>
+//                (0,ViewActions.click()))
+//        Espresso.onView(ViewMatchers.withId(text)).check(ViewAssertions.matches(ViewMatchers.withText(getChild(R.id.recycle_view, 0))))
+//    }
     @Test
     fun clickLastItem(){
         Espresso.onView(ViewMatchers.withId(recycle_view)).
@@ -63,20 +65,17 @@ class ExampleInstrumentedTest {
         return count
     }
 
-    fun getChild(parentMatcher: org.hamcrest.Matcher<View>, childPosition: Int): TypeSafeMatcher<View> {
-        return object : TypeSafeMatcher<View>() {
-            override fun describeTo(description: Description) {
-                description.appendText("with $childPosition child view of type parentMatcher")
-            }
-
-            override fun matchesSafely(view: View): Boolean {
-                if (view.parent !is ViewGroup) {
-                    return parentMatcher.matches(view.parent)
-                }
-                val group = view.parent as ViewGroup
-                return parentMatcher.matches(view.parent) && group.getChildAt(childPosition) == view
+    fun getChild(@IdRes RecyclerViewId: Int,position : Int): String {
+        var textItem = ""
+        val matcher: TypeSafeMatcher<View> = object : TypeSafeMatcher<View>() {
+            override fun describeTo(description: Description) {}
+            override fun matchesSafely(v: View?): Boolean {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                val recycle = (v as RecyclerView)
+                textItem = recycle.getChildAt(position).toString()
             }
         }
+        onView(ViewMatchers.withId(RecyclerViewId)).check(ViewAssertions.matches(matcher))
+        return textItem
     }
-
 }
