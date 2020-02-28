@@ -1,15 +1,17 @@
-package com.buidanh.myapplication
+package com.buidanhtuan.test4
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.content.Intent
 import android.view.MotionEvent
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 class Item ( val name: String )
 
-class MainActivity : AppCompatActivity() {
+class RecyclerView : AppCompatActivity() {
     lateinit var recyclerView : RecyclerView
     lateinit var adapter: RecyclerViewAdapter
     val list: List<Item> = listOf(
@@ -23,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_recycler_view)
         recyclerView = findViewById(R.id.recycle_view)
         adapter = RecyclerViewAdapter(list, this)
         recyclerView.adapter = adapter

@@ -40,10 +40,11 @@ import java.util.regex.Pattern.matches
 class ExampleInstrumentedTest {
     @Before
     fun onSetup(){
-        ActivityScenario.launch(MainActivity::class.java)
+        ActivityScenario.launch(Button::class.java)
     }
     @Test
     fun clickFistItem(){
+        Espresso.onView(ViewMatchers.withId(R.id.button)).perform(ViewActions.click())
         val text = getChildValue(recycle_view,0)
         Espresso.onView(ViewMatchers.withId(R.id.recycle_view))
             .perform(RecyclerViewActions.actionOnItemAtPosition
@@ -52,11 +53,12 @@ class ExampleInstrumentedTest {
     }
     @Test
     fun clickLastItem(){
-        val text = getChildValue(recycle_view,0)
-        val count = getCountFromRecyclerView(recycle_view)-1
+        Espresso.onView(ViewMatchers.withId(R.id.button)).perform(ViewActions.click())
+        var count = getCountFromRecyclerView(recycle_view)-1
+        var text = getChildValue(recycle_view,count)
         Espresso.onView(ViewMatchers.withId(recycle_view)).
             perform(RecyclerViewActions.actionOnItemAtPosition
-            <RecyclerViewAdapter.RecyclerViewHolder>(count-1,ViewActions.click()))
+            <RecyclerViewAdapter.RecyclerViewHolder>(count,ViewActions.click()))
         Espresso.onView(ViewMatchers.withId(R.id.text)).check(ViewAssertions.matches(withText(text)))
     }
 
@@ -82,8 +84,8 @@ class ExampleInstrumentedTest {
                 var view = viewItem.getChildAt(0)
                 var i = 0
                 while (view !is TextView){
-                    i++
                     view = viewItem.getChildAt(i)
+                    i++
                 }
                 textItem = view.text.toString()
                 return true
