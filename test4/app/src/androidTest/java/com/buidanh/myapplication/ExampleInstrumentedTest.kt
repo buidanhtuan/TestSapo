@@ -81,13 +81,12 @@ class ExampleInstrumentedTest {
             override fun describeTo(description: Description) {}
             override fun matchesSafely(view: View): Boolean {
                 val viewItem: ViewGroup = (view as RecyclerView).layoutManager!!.findViewByPosition(position) as ViewGroup
-                var view = viewItem.getChildAt(0)
-                var i = 0
-                while (view !is TextView){
-                    view = viewItem.getChildAt(i)
-                    i++
+                for (i in 0..viewItem.childCount) {
+                    val view : View = viewItem.getChildAt(i)
+                    if (view.id == itemId) {
+                        textItem= view.text.toString()
+                    }
                 }
-                textItem = view.text.toString()
                 return true
             }
         }
