@@ -45,7 +45,7 @@ class ExampleInstrumentedTest {
     @Test
     fun clickFistItem(){
         Espresso.onView(ViewMatchers.withId(R.id.button)).perform(ViewActions.click())
-        val text = getChildValue(recycle_view,0)
+        val text = getChildValue(recycle_view,0, name)
         Espresso.onView(ViewMatchers.withId(R.id.recycle_view))
             .perform(RecyclerViewActions.actionOnItemAtPosition
             <RecyclerViewAdapter.RecyclerViewHolder>(0,ViewActions.click()))
@@ -55,7 +55,7 @@ class ExampleInstrumentedTest {
     fun clickLastItem(){
         Espresso.onView(ViewMatchers.withId(R.id.button)).perform(ViewActions.click())
         var count = getCountFromRecyclerView(recycle_view)-1
-        var text = getChildValue(recycle_view,count)
+        var text = getChildValue(recycle_view,count,name)
         Espresso.onView(ViewMatchers.withId(recycle_view)).
             perform(RecyclerViewActions.actionOnItemAtPosition
             <RecyclerViewAdapter.RecyclerViewHolder>(count,ViewActions.click()))
@@ -75,7 +75,7 @@ class ExampleInstrumentedTest {
         return count
     }
 
-    fun getChildValue(RecyclerViewId: Int,position : Int): String {
+    fun getChildValue(RecyclerViewId: Int,position : Int, itemId: Int): String {
         var textItem = ""
         val matcher: TypeSafeMatcher<View> = object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {}
