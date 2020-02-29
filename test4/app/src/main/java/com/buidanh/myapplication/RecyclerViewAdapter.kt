@@ -37,6 +37,6 @@ class RecyclerViewAdapter(val list: List<Item>, var context : Context) :
     }
     class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val container: LinearLayout = itemView.findViewById(R.id.container)
-        val Name: TextView = itemView.findViewById(R.id.name)
+        val Name: TextView = itemView.findViewById(R.id.tv_name)
     }
 }
