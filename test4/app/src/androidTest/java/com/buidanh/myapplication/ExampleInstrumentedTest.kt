@@ -37,44 +37,14 @@ class ExampleInstrumentedTest {
     @Test
     fun clickFistItem() {
         onView(withId(R.id.button)).perform(ViewActions.click())
-        val value = (getChildValue(R.id.recycle_view, 0, R.id.tv_name) as TextView).text.toString()
+        val value = (getChildValue(R.id.recycle_view, 7, R.id.tv_name) as TextView).text.toString()
         onView(withId(R.id.recycle_view))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition
-                <RecyclerViewAdapter.RecyclerViewHolder>(0, ViewActions.click())
+                <RecyclerViewAdapter.RecyclerViewHolder>(7, ViewActions.click())
             )
         onView(withId(R.id.text)).check(matches(withText(value)))
     }
-
-    @Test
-    fun clickLastItem() {
-        onView(withId(R.id.button)).perform(ViewActions.click())
-        val count = getCountFromRecyclerView(R.id.recycle_view) - 1
-        val value =
-            (getChildValue(R.id.recycle_view, count, R.id.tv_name) as TextView).text.toString()
-        onView(withId(R.id.recycle_view)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<RecyclerViewAdapter.RecyclerViewHolder>(
-                count,
-                ViewActions.click()
-            )
-        )
-        onView(withId(R.id.text)).check(matches(withText(value)))
-    }
-
-    private fun getCountFromRecyclerView(RecyclerViewId: Int): Int {
-        var count = 0
-        val matcher: TypeSafeMatcher<View> = object : TypeSafeMatcher<View>() {
-            override fun matchesSafely(item: View): Boolean {
-                count = (item as RecyclerView).adapter!!.itemCount
-                return true
-            }
-
-            override fun describeTo(description: Description) {}
-        }
-        onView(withId(RecyclerViewId)).check(ViewAssertions.matches(matcher))
-        return count
-    }
-
     private fun getChildValue(RecyclerViewId: Int, position: Int, itemId: Int): View? {
         var viewItem: View? = null
         val matcher: TypeSafeMatcher<View> = object : TypeSafeMatcher<View>() {
