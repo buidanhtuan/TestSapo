@@ -1,8 +1,13 @@
 package com.buidanhtuan.sapo_mobile.adapter
 
+import android.graphics.Color
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.appcompat.view.menu.MenuView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.buidanhtuan.sapo_mobile.R
 import com.buidanhtuan.sapo_mobile.activity.CityActivity
@@ -29,17 +34,11 @@ class CityAdapter (val listCity: ArrayList<CityActivity.City>, val onClickItemLi
         fun bindData() {
             itemView.tv_city_adapter.text = listCity[adapterPosition].cityName
             itemView.setOnClickListener(this)
-            if( CityActivity.pst == adapterPosition){
-                itemView.setBackgroundColor(R.drawable.select)
-                System.out.println(adapterPosition)
-            }
         }
-
         override fun onClick(v: View?) {
             onClickItemListener.onClickItem(adapterPosition)
         }
     }
-
     interface OnClickItemListener{
         fun onClickItem(position : Int){
         }

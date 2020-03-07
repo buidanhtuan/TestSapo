@@ -31,7 +31,6 @@ class CityActivity : AppCompatActivity(),
     companion object {
         var cityName = ""
         var cityCode = 0
-        var pst = -1
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +44,10 @@ class CityActivity : AppCompatActivity(),
         val intent: Intent = Intent (this, DistrictActivity::class.java)
         cityName = listCityName.get(position)
         cityCode = listCityCode.get(position)
-        pst = position
+        for(i in 0..(cityName.length-1)){
+            rv_city.layoutManager?.getChildAt(i)?.setBackgroundResource(R.drawable.shape_recyclerview)
+        }
+        rv_city.getChildAt(position).setBackgroundResource(R.drawable.shape_button)
         startActivity(intent)
     }
     inner class Json : AsyncTask<Void, Void, Void>() {
@@ -58,7 +60,7 @@ class CityActivity : AppCompatActivity(),
                 var url: URL = URL(str)
                 urlConn = url.openConnection()
                 bufferedReader = BufferedReader(InputStreamReader(urlConn.getInputStream()))
-                var stringBuffer: StringBuffer? = null
+                //var stringBuffer: StringBuffer? = null
                 var line: String = ""
                 line = bufferedReader.readLine()
                 var json: JSONObject = JSONObject(line)

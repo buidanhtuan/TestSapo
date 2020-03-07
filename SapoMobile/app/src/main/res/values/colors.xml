@@ -6,4 +6,5 @@
     <color name="n1">#2196F3</color>
     <color name="n2">#03A9F4</color>
     <color name="n3">#00BCD4</color>
+    <color name="colorBgSelectedItem">#0AA86B</color>
 </resources>

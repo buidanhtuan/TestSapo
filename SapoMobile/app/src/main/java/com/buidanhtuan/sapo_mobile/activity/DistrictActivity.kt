@@ -45,6 +45,10 @@ class DistrictActivity : AppCompatActivity(), DistrictAdapter.OnClickItemListene
     override fun onClickItem(position: Int) {
         districtName = listDistrictName.get(position)
         val intent: Intent = Intent (this, AgeActivity::class.java)
+        for(i in 0..(CityActivity.cityName.length-1)){
+            rv_district.layoutManager?.getChildAt(i)?.setBackgroundResource(R.drawable.shape_recyclerview)
+        }
+        rv_district.layoutManager?.getChildAt(position)?.setBackgroundResource(R.drawable.shape_button)
         startActivity(intent)
     }
     inner class Json : AsyncTask<Void, Void, Void>() {

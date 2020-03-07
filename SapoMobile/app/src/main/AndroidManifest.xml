@@ -15,6 +15,7 @@
         <activity android:name=".activity.SummaryActivity" />
         <activity android:name=".activity.AgeActivity" />
         <activity android:name=".activity.DistrictActivity" />
+        <activity android:name=".activity.CityActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.CityActivity" />
     </application>
 
 </manifest>
