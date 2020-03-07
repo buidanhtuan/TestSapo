@@ -31,12 +31,13 @@ class CityActivity : AppCompatActivity(),
     companion object {
         var cityName = ""
         var cityCode = 0
+        var pst = -1
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_city)
         rv_city.layoutManager = LinearLayoutManager(this)
-        rv_city.adapter = CityAdapter(listCityName, this)
+        rv_city.adapter = CityAdapter(listCity, this)
         Json().execute()
     }
     override fun onClickItem(position: Int) {
@@ -44,6 +45,7 @@ class CityActivity : AppCompatActivity(),
         val intent: Intent = Intent (this, DistrictActivity::class.java)
         cityName = listCityName.get(position)
         cityCode = listCityCode.get(position)
+        pst = position
         startActivity(intent)
     }
     inner class Json : AsyncTask<Void, Void, Void>() {

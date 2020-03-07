@@ -60,7 +60,6 @@ class DistrictActivity : AppCompatActivity(), DistrictAdapter.OnClickItemListene
                 var line: String = ""
                 line = bufferedReader.readLine()
                 var json: JSONObject = JSONObject(line)
-                System.out.println(line)
                 var jArray: JSONArray = json.getJSONArray("Districts")
                 var length: Int = jArray.length() - 1
                 for (i in 0..length) {

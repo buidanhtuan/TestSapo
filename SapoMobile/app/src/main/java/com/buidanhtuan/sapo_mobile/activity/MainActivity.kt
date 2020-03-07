@@ -30,7 +30,7 @@ open class MainActivity : AppCompatActivity() {
             tv_main_report_password.text=""
             tv_main_report_repeat_password.text=""
             var checkall = check(userName, email, password, repeatPassword)
-            if(checkall) {
+            if(!checkall) {
                 val intent: Intent = Intent (this, CityActivity::class.java)
                 startActivity(intent)
             }
