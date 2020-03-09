@@ -4,11 +4,15 @@ import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
+import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.buidanhtuan.sapo_mobile.R
 import com.buidanhtuan.sapo_mobile.adapter.CityAdapter
 import kotlinx.android.synthetic.main.activity_city.*
+import kotlinx.android.synthetic.main.adapter_city.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -44,16 +48,12 @@ class CityActivity : AppCompatActivity(),
         val intent: Intent = Intent (this, DistrictActivity::class.java)
         cityName = listCityName.get(position)
         cityCode = listCityCode.get(position)
-        for(i in 0..(cityName.length-1)){
-            rv_city.layoutManager?.getChildAt(i)?.setBackgroundResource(R.drawable.shape_recyclerview)
-        }
-        rv_city.getChildAt(position).setBackgroundResource(R.drawable.shape_button)
+        rv_city.adapter = CityAdapter(listCity,this)
         startActivity(intent)
     }
     inner class Json : AsyncTask<Void, Void, Void>() {
         override fun doInBackground(vararg p0: Void?): Void? {
-            var str =
-                "https://raw.githubusercontent.com/sapo-tech/home_test_mobile/master/Cities.json"
+            var str = "https://raw.githubusercontent.com/sapo-tech/home_test_mobile/master/Cities.json"
             var urlConn: URLConnection? = null
             var bufferedReader: BufferedReader? = null
             try {
