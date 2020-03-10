@@ -9,8 +9,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.buidanhtuan.sapo_mobile.Interface.OnClickItemListener
 import com.buidanhtuan.sapo_mobile.R
 import com.buidanhtuan.sapo_mobile.adapter.CityAdapter
+import com.buidanhtuan.sapo_mobile.input.ValueCity
 import kotlinx.android.synthetic.main.activity_city.*
 import kotlinx.android.synthetic.main.adapter_city.*
 import org.json.JSONArray
@@ -22,8 +24,7 @@ import java.lang.Exception
 import java.net.URL
 import java.net.URLConnection
 
-class CityActivity : AppCompatActivity(),
-    CityAdapter.OnClickItemListener{
+class CityActivity : AppCompatActivity(), OnClickItemListener {
     val listCity: ArrayList<City> = ArrayList()
     class City {
         var cityName = ""
@@ -38,7 +39,8 @@ class CityActivity : AppCompatActivity(),
         setContentView(R.layout.activity_city)
         rv_city.layoutManager = LinearLayoutManager(this)
         rv_city.adapter = CityAdapter(listCity, this)
-        Json().execute()
+        var value = ValueCity(listCity,rv_city)
+        value.Json().execute()
     }
     override fun onClickItem(position: Int) {
         val intent: Intent = Intent (this, DistrictActivity::class.java)
@@ -49,44 +51,5 @@ class CityActivity : AppCompatActivity(),
             (rv_city.layoutManager as LinearLayoutManager).scrollToPosition(position)
         }
         startActivity(intent)
-    }
-    inner class Json : AsyncTask<Void, Void, Void>() {
-        override fun doInBackground(vararg p0: Void?): Void? {
-            var str = "https://raw.githubusercontent.com/sapo-tech/home_test_mobile/master/Cities.json"
-            var urlConn: URLConnection? = null
-            var bufferedReader: BufferedReader? = null
-            try {
-                var url: URL = URL(str)
-                urlConn = url.openConnection()
-                bufferedReader = BufferedReader(InputStreamReader(urlConn.getInputStream()))
-                //var stringBuffer: StringBuffer? = null
-                var line: String = ""
-                line = bufferedReader.readLine()
-                var json: JSONObject = JSONObject(line)
-                var jArray: JSONArray = json.getJSONArray("Cities")
-                var length: Int = jArray.length() - 1
-                for (i in 0..length) {
-                    var json_data: JSONObject = jArray.getJSONObject(i)
-                    var city : City = City()
-                    city.cityCode = json_data.getInt("CityCode")
-                    city.cityName = json_data.getString("Name")
-                    listCity.add(city)
-                }
-            } catch (ex: Exception) {
-                Log.e("App", "yourDataTask", ex)
-            } finally {
-                if (bufferedReader != null) {
-                    try {
-                        bufferedReader.close()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
-                }
-            }
-            return null
-        }
-        override fun onPostExecute(result: Void?) {
-            rv_city.adapter?.notifyDataSetChanged()
-        }
     }
 }

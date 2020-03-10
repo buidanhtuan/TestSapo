@@ -26,12 +26,8 @@ import kotlin.math.absoluteValue
 import androidx.core.view.size as size1
 
 class Test {
-    val t = ""
-    val t1 = "12234"
     val t2 = "123456789"
-    val t3 = "abc@gmail.co"
     val t4 = "a@gmail.com"
-    val t5 ="tuan123#"
     val t6 = "Tuan1234$"
     val position = 5
     var userName = ""

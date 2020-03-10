@@ -8,7 +8,7 @@ import com.buidanhtuan.sapo_mobile.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_summary.*
 
-class SummaryActivity : AppCompatActivity() {
+open class SummaryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.view.menu.MenuView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.buidanhtuan.sapo_mobile.Interface.OnClickItemListener
 import com.buidanhtuan.sapo_mobile.R
 import com.buidanhtuan.sapo_mobile.activity.CityActivity
 import com.buidanhtuan.sapo_mobile.activity.MainActivity
@@ -41,10 +42,6 @@ class CityAdapter (val listCity: ArrayList<CityActivity.City>, val onClickItemLi
         }
         override fun onClick(v: View?) {
             onClickItemListener.onClickItem(adapterPosition)
-        }
-    }
-    interface OnClickItemListener{
-        fun onClickItem(position : Int){
         }
     }
 }

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.buidanhtuan.sapo_mobile.Interface.OnClickItemListener
 import com.buidanhtuan.sapo_mobile.R
 import com.buidanhtuan.sapo_mobile.activity.DistrictActivity
 import kotlinx.android.synthetic.main.adapter_district.view.*
@@ -36,11 +37,6 @@ class DistrictAdapter(val listDistrict: ArrayList<DistrictActivity.District>, va
 
         override fun onClick(v: View?) {
             onClickItemListener.onClickItem(adapterPosition)
-        }
-    }
-
-    interface OnClickItemListener{
-        fun onClickItem(position : Int){
         }
     }
 }
