@@ -34,7 +34,7 @@ class CityAdapter (val listCity: ArrayList<CityActivity.City>, val onClickItemLi
         fun bindData() {
             itemView.tv_city_adapter.text = listCity[adapterPosition].cityName
             itemView.setOnClickListener(this)
-            if(adapterPosition==CityActivity.cityCode-1){
+            if(listCity[adapterPosition].cityCode==CityActivity.cityCode){
                 itemView.setBackgroundResource(R.drawable.shape_button)
             }
             else itemView.setBackgroundResource(R.drawable.shape_recyclerview)

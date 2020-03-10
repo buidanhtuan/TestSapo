@@ -24,9 +24,6 @@ import java.net.URLConnection
 
 class CityActivity : AppCompatActivity(),
     CityAdapter.OnClickItemListener{
-
-    val listCityName: ArrayList<String> = ArrayList()
-    val listCityCode: ArrayList<Int> = ArrayList()
     val listCity: ArrayList<City> = ArrayList()
     class City {
         var cityName = ""
@@ -44,11 +41,13 @@ class CityActivity : AppCompatActivity(),
         Json().execute()
     }
     override fun onClickItem(position: Int) {
-        cityName  = listCityName.get(position)
         val intent: Intent = Intent (this, DistrictActivity::class.java)
-        cityName = listCityName.get(position)
-        cityCode = listCityCode.get(position)
+        cityName = listCity.get(position).cityName
+        cityCode = listCity.get(position).cityCode
         rv_city.adapter = CityAdapter(listCity,this)
+        if(cityCode != -1){
+            (rv_city.layoutManager as LinearLayoutManager).scrollToPosition(position)
+        }
         startActivity(intent)
     }
     inner class Json : AsyncTask<Void, Void, Void>() {
@@ -87,10 +86,6 @@ class CityActivity : AppCompatActivity(),
             return null
         }
         override fun onPostExecute(result: Void?) {
-            for (i in 0..(listCity.size-1)){
-                listCityName.add(listCity.get(i).cityName)
-                listCityCode.add(listCity.get(i).cityCode)
-            }
             rv_city.adapter?.notifyDataSetChanged()
         }
     }

@@ -23,7 +23,6 @@ import java.net.URLConnection
 
 class DistrictActivity : AppCompatActivity(), DistrictAdapter.OnClickItemListener{
     val listDistrict: ArrayList<District> = ArrayList()
-    val listDistrictName : ArrayList<String> = ArrayList()
     class District{
         var cityCode : Int = 0
         var districtName : String = ""
@@ -35,20 +34,20 @@ class DistrictActivity : AppCompatActivity(), DistrictAdapter.OnClickItemListene
         var districtCode : Int = 0
     }
     override fun onCreate(savedInstanceState: Bundle?) {
-        var intent = getIntent()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_district)
         rv_district.layoutManager = LinearLayoutManager(this)
-        rv_district.adapter = DistrictAdapter(listDistrictName, this)
+        rv_district.adapter = DistrictAdapter(listDistrict, this)
         Json().execute()
     }
     override fun onClickItem(position: Int) {
-        districtName = listDistrictName.get(position)
+        districtName = listDistrict.get(position).districtName
+        districtCode = listDistrict.get(position).districtCode
         val intent: Intent = Intent (this, AgeActivity::class.java)
-        for(i in 0..(CityActivity.cityName.length-1)){
-            rv_district.layoutManager?.getChildAt(i)?.setBackgroundResource(R.drawable.shape_recyclerview)
+        rv_district.adapter = DistrictAdapter(listDistrict,this)
+        if(districtCode != -1){
+            (rv_district.layoutManager as LinearLayoutManager).scrollToPosition(position)
         }
-        rv_district.layoutManager?.getChildAt(position)?.setBackgroundResource(R.drawable.shape_button)
         startActivity(intent)
     }
     inner class Json : AsyncTask<Void, Void, Void>() {
@@ -72,7 +71,9 @@ class DistrictActivity : AppCompatActivity(), DistrictAdapter.OnClickItemListene
                     district.districtName=json_data.getString("Name")
                     district.cityCode=json_data.getInt("CityCode")
                     district.districtCode=json_data.getInt("DistrictCode")
-                    listDistrict.add(district)
+                    if (district.cityCode == CityActivity.cityCode){
+                        listDistrict.add(district)
+                    }
                 }
             } catch (ex: Exception) {
                 ex.printStackTrace()
@@ -89,12 +90,6 @@ class DistrictActivity : AppCompatActivity(), DistrictAdapter.OnClickItemListene
             return null
         }
         override fun onPostExecute(result: Void?) {
-            var cityCode = CityActivity.cityCode
-            for (i in 0..(listDistrict.size-1)){
-                if(listDistrict.get(i).cityCode==cityCode){
-                    listDistrictName.add(listDistrict.get(i).districtName)
-                }
-            }
             rv_district.adapter?.notifyDataSetChanged()
         }
     }

@@ -6,10 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.buidanhtuan.sapo_mobile.R
 import com.buidanhtuan.sapo_mobile.activity.DistrictActivity
-import kotlinx.android.synthetic.main.adapter_city.view.*
 import kotlinx.android.synthetic.main.adapter_district.view.*
 
-class DistrictAdapter(val listName: ArrayList<String>, val onClickItemListener: OnClickItemListener) :
+class DistrictAdapter(val listDistrict: ArrayList<DistrictActivity.District>, val onClickItemListener: OnClickItemListener) :
     RecyclerView.Adapter<DistrictAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -17,7 +16,7 @@ class DistrictAdapter(val listName: ArrayList<String>, val onClickItemListener: 
     }
 
     override fun getItemCount(): Int {
-        return listName.size
+        return listDistrict.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -27,8 +26,12 @@ class DistrictAdapter(val listName: ArrayList<String>, val onClickItemListener: 
     inner class ViewHolder(itemView: View, val onClickItemListener: OnClickItemListener) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         fun bindData() {
-            itemView.tv_district_adapter.text = listName[adapterPosition]
+            itemView.tv_district_adapter.text = listDistrict[adapterPosition].districtName
             itemView.setOnClickListener(this)
+            if(listDistrict[adapterPosition].districtCode==DistrictActivity.districtCode){
+                itemView.setBackgroundResource(R.drawable.shape_button)
+            }
+            else itemView.setBackgroundResource(R.drawable.shape_recyclerview)
         }
 
         override fun onClick(v: View?) {
