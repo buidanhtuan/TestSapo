@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.buidanhtuan.sapo_mobile.Interface.OnClickItemListener
 import com.buidanhtuan.sapo_mobile.R
 import com.buidanhtuan.sapo_mobile.activity.DistrictActivity
+import com.buidanhtuan.sapo_mobile.interface_.OnClickItemListener
 import kotlinx.android.synthetic.main.adapter_district.view.*
 
-class DistrictAdapter(val listDistrict: ArrayList<DistrictActivity.District>, val onClickItemListener: OnClickItemListener) :
+class DistrictAdapter(val listDistrict: ArrayList<DistrictActivity.District>, private val onClickItemListener: OnClickItemListener) :
     RecyclerView.Adapter<DistrictAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,7 +24,7 @@ class DistrictAdapter(val listDistrict: ArrayList<DistrictActivity.District>, va
         holder.bindData()
     }
 
-    inner class ViewHolder(itemView: View, val onClickItemListener: OnClickItemListener) : RecyclerView.ViewHolder(itemView),
+    inner class ViewHolder(itemView: View, private val onClickItemListener: OnClickItemListener) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         fun bindData() {
             itemView.tv_district_adapter.text = listDistrict[adapterPosition].districtName

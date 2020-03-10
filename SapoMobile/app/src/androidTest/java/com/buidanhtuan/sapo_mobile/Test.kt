@@ -3,10 +3,8 @@ package com.buidanhtuan.sapo_mobile
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
-import androidx.annotation.IdRes
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
@@ -14,7 +12,6 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
-import com.buidanhtuan.sapo_mobile.activity.AgeActivity
 import com.buidanhtuan.sapo_mobile.activity.MainActivity
 import com.buidanhtuan.sapo_mobile.adapter.CityAdapter
 import com.shawnlin.numberpicker.NumberPicker
@@ -22,14 +19,12 @@ import org.hamcrest.Description
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Before
 import org.junit.Test
-import kotlin.math.absoluteValue
-import androidx.core.view.size as size1
 
 class Test {
-    val t2 = "123456789"
-    val t4 = "a@gmail.com"
-    val t6 = "Tuan1234$"
-    val position = 5
+    private val t2 = "123456789"
+    private val t4 = "a@gmail.com"
+    private val t6 = "Tuan1234$"
+    private val position = 5
     var userName = ""
     var email = ""
     var age = ""

@@ -1,4 +1,4 @@
-package com.buidanhtuan.sapo_mobile.Interface
+package com.buidanhtuan.sapo_mobile.interface_
 
 interface OnClickItemListener{
     fun onClickItem(position : Int){

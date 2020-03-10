@@ -1,11 +1,9 @@
 package com.buidanhtuan.sapo_mobile.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.buidanhtuan.sapo_mobile.R
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_summary.*
 
 open class SummaryActivity : AppCompatActivity() {
@@ -20,7 +18,7 @@ open class SummaryActivity : AppCompatActivity() {
         et_summary_city.setText(CityActivity.cityName)
         et_summery_district.setText(DistrictActivity.districtName)
         bt_summary.setOnClickListener {
-            val intent: Intent = Intent (this, WellcomeActivity::class.java)
+            val intent = Intent (this, WellcomeActivity::class.java)
             startActivity(intent)
         }
     }
