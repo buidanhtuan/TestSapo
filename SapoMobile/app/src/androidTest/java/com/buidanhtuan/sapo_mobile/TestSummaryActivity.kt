@@ -5,7 +5,6 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
-import com.buidanhtuan.sapo_mobile.activity.MainActivity
 import com.buidanhtuan.sapo_mobile.activity.SummaryActivity
 import org.junit.Before
 import org.junit.Test
