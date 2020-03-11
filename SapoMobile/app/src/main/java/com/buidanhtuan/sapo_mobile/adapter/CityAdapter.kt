@@ -1,21 +1,15 @@
 package com.buidanhtuan.sapo_mobile.adapter
 
-import android.graphics.Color
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
-import androidx.appcompat.view.menu.MenuView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.buidanhtuan.sapo_mobile.Interface.OnClickItemListener
 import com.buidanhtuan.sapo_mobile.R
 import com.buidanhtuan.sapo_mobile.activity.CityActivity
-import com.buidanhtuan.sapo_mobile.activity.MainActivity
+import com.buidanhtuan.sapo_mobile.interfaces.OnClickItemListener
 import kotlinx.android.synthetic.main.adapter_city.view.*
 
-class CityAdapter (val listCity: ArrayList<CityActivity.City>, val onClickItemListener: OnClickItemListener) :
+class CityAdapter (val listCity: ArrayList<CityActivity.City>, private val onClickItemListener: OnClickItemListener) :
     RecyclerView.Adapter<CityAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,6 +29,7 @@ class CityAdapter (val listCity: ArrayList<CityActivity.City>, val onClickItemLi
      * tìm hiểu lại định nghĩa inner class nha
      */
     inner class ViewHolder(itemView: View, val onClickItemListener: OnClickItemListener) : RecyclerView.ViewHolder(itemView),
+
         View.OnClickListener {
         fun bindData() {
             itemView.tv_city_adapter.text = listCity[adapterPosition].cityName

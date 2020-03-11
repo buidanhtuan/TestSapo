@@ -4,10 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.RadioGroup
-import android.widget.Toast
 import com.buidanhtuan.sapo_mobile.R
 import kotlinx.android.synthetic.main.activity_age.*
-import kotlin.math.absoluteValue
 
 class AgeActivity : AppCompatActivity() {
     companion object {
@@ -18,14 +16,14 @@ class AgeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_age)
         val radioGroup = findViewById<RadioGroup>(R.id.rg_age)
-        radioGroup?.setOnCheckedChangeListener { group, checkedId ->
+        radioGroup?.setOnCheckedChangeListener { _, checkedId ->
             if(R.id.radioButton==checkedId) sex = "Nam"
             if(R.id.radioButton2==checkedId) sex = "Nữ"
             if(R.id.radioButton3 ==checkedId) sex = "Khác"
         }
         bt_age.setOnClickListener {
             age = np_age.value
-            val intent: Intent = Intent (this, SummaryActivity::class.java)
+            val intent = Intent (this, SummaryActivity::class.java)
             startActivity(intent)
         }
     }

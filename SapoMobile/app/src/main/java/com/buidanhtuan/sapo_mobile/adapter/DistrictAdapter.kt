@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.buidanhtuan.sapo_mobile.Interface.OnClickItemListener
 import com.buidanhtuan.sapo_mobile.R
 import com.buidanhtuan.sapo_mobile.activity.DistrictActivity
+import com.buidanhtuan.sapo_mobile.interfaces.OnClickItemListener
 import kotlinx.android.synthetic.main.adapter_district.view.*
 
-class DistrictAdapter(val listDistrict: ArrayList<DistrictActivity.District>, val onClickItemListener: OnClickItemListener) :
+class DistrictAdapter(val listDistrict: ArrayList<DistrictActivity.District>, private val onClickItemListener: OnClickItemListener) :
     RecyclerView.Adapter<DistrictAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
