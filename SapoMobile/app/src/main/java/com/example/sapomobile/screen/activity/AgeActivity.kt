@@ -12,8 +12,10 @@ class AgeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_age)
-        val radioGroup = findViewById<RadioGroup>(R.id.rg_age)
-        radioGroup?.setOnCheckedChangeListener { _, checkedId ->
+        // TODO Kotlin e  cần findIDView nào đó đâu nha
+//        val radioGroup = findViewById<RadioGroup>(R.id.rg_age)
+        rg_age.setOnCheckedChangeListener { _, checkedId ->
+            if(R.id.radioButton==checkedId)   User.sex = "Nam"
             if(R.id.radioButton==checkedId)   User.sex = "Nam"
             if(R.id.radioButton2==checkedId)  User.sex = "Nữ"
             if(R.id.radioButton3 ==checkedId) User.sex = "Khác"
