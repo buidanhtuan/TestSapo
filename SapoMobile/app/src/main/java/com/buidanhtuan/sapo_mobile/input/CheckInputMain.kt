@@ -4,6 +4,10 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.regex.Pattern
 
+/**
+ * tìm hiểu cho static trong kotlin nó dùng như thế nào  (cả function lẫn class nha)
+ * rồi nếu cần thiết chuyển về các function dạng static
+ */
 class CheckInputMain() {
     fun checkUserName (userName : String,tv_main_report_user_name : TextView) : Boolean{
         if(userName.length>8) return true

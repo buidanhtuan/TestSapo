@@ -39,7 +39,7 @@ class CityActivity : AppCompatActivity(), OnClickItemListener {
         setContentView(R.layout.activity_city)
         rv_city.layoutManager = LinearLayoutManager(this)
         rv_city.adapter = CityAdapter(listCity, this)
-        var value = ValueCity(listCity,rv_city)
+        var value = ValueCity(listCity,rv_city) //warming
         value.Json().execute()
     }
     override fun onClickItem(position: Int) {

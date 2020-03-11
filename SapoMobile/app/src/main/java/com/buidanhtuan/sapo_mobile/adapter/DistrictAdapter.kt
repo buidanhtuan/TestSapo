@@ -13,7 +13,7 @@ class DistrictAdapter(val listDistrict: ArrayList<DistrictActivity.District>, va
     RecyclerView.Adapter<DistrictAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.adapter_district, parent, false),onClickItemListener)
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.adapter_district, parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -24,7 +24,7 @@ class DistrictAdapter(val listDistrict: ArrayList<DistrictActivity.District>, va
         holder.bindData()
     }
 
-    inner class ViewHolder(itemView: View, val onClickItemListener: OnClickItemListener) : RecyclerView.ViewHolder(itemView),
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         fun bindData() {
             itemView.tv_district_adapter.text = listDistrict[adapterPosition].districtName

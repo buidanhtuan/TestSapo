@@ -30,6 +30,10 @@ class CityAdapter (val listCity: ArrayList<CityActivity.City>, val onClickItemLi
         holder.bindData()
     }
 
+    /**
+     * loan
+     * tìm hiểu lại định nghĩa inner class nha
+     */
     inner class ViewHolder(itemView: View, val onClickItemListener: OnClickItemListener) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         fun bindData() {
