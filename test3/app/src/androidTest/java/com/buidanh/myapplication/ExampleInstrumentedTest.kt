@@ -44,7 +44,7 @@ class ExampleInstrumentedTest {
     }
     @Test
     fun clickFistItem(){
-        val text = getChildValue(recycle_view,0)
+        val text = getChildValue(recycle_view,0,name)
         Espresso.onView(ViewMatchers.withId(R.id.recycle_view))
             .perform(RecyclerViewActions.actionOnItemAtPosition
             <RecyclerViewAdapter.RecyclerViewHolder>(0,ViewActions.click()))
@@ -53,7 +53,7 @@ class ExampleInstrumentedTest {
     @Test
     fun clickLastItem(){
         var count = getCountFromRecyclerView(recycle_view)-1
-        var text = getChildValue(recycle_view,count)
+        var text = getChildValue(recycle_view,count, name)
         Espresso.onView(ViewMatchers.withId(recycle_view)).
             perform(RecyclerViewActions.actionOnItemAtPosition
             <RecyclerViewAdapter.RecyclerViewHolder>(count,ViewActions.click()))
@@ -73,23 +73,18 @@ class ExampleInstrumentedTest {
         return count
     }
 
-    fun getChildValue(RecyclerViewId: Int,position : Int): String {
+    fun getChildValue(RecyclerViewId: Int,position : Int, itemId: Int): String {
         var textItem = ""
         val matcher: TypeSafeMatcher<View> = object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {}
             override fun matchesSafely(view: View): Boolean {
                 val viewItem: ViewGroup = (view as RecyclerView).layoutManager!!.findViewByPosition(position) as ViewGroup
-                var view = viewItem.getChildAt(0)
-                var i = 0
-                while (view !is TextView){
-                    view = viewItem.getChildAt(i)
-                    i++
-                }
-                textItem = view.text.toString()
+                textItem = (viewItem.findViewById<TextView>(itemId)).text.toString()
                 return true
             }
         }
         Espresso.onView(ViewMatchers.withId(RecyclerViewId)).check(ViewAssertions.matches(matcher))
         return textItem
     }
+
 }

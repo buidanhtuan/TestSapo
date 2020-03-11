@@ -33,6 +33,7 @@ class ExampleInstrumentedTest {
     fun onSetup() {
         ActivityScenario.launch(Button::class.java)
     }
+<<<<<<< HEAD
 
     @Test
     fun clickFistItem() {
@@ -75,6 +76,20 @@ class ExampleInstrumentedTest {
         return count
     }
 
+=======
+
+    @Test
+    fun clickFistItem() {
+        onView(withId(R.id.button)).perform(ViewActions.click())
+        val value = (getChildValue(R.id.recycle_view, 7, R.id.tv_name) as TextView).text.toString()
+        onView(withId(R.id.recycle_view))
+            .perform(
+                RecyclerViewActions.actionOnItemAtPosition
+                <RecyclerViewAdapter.RecyclerViewHolder>(7, ViewActions.click())
+            )
+        onView(withId(R.id.text)).check(matches(withText(value)))
+    }
+>>>>>>> 577dba5c0ddf7894404d32d4a5132c7af0916ebb
     private fun getChildValue(RecyclerViewId: Int, position: Int, itemId: Int): View? {
         var viewItem: View? = null
         val matcher: TypeSafeMatcher<View> = object : TypeSafeMatcher<View>() {
