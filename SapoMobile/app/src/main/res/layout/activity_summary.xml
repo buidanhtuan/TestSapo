@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screen.activity.SummaryActivity">
+
+    <TextView
+        android:id="@+id/tv_summery_title"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="Bạn đã chọn"
+        android:textSize = "25sp"
+        android:textColor="#000000"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_summery_user_name"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:text="Tên đăng nhập"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_summery_title"
+        app:layout_constraintWidth_percent="0.4"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:id="@+id/tv_summery_email"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="Email"
+        android:textSize = "15sp"
+        android:gravity="center_vertical"
+        app:layout_constraintStart_toStartOf="@id/tv_summery_user_name"
+        app:layout_constraintEnd_toEndOf="@id/tv_summery_user_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_summery_user_name"/>
+
+    <TextView
+        android:id="@+id/tv_summery_sex"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="Giới tính"
+        android:textSize = "15sp"
+        android:gravity="center_vertical"
+        app:layout_constraintStart_toStartOf="@id/tv_summery_user_name"
+        app:layout_constraintEnd_toEndOf="@id/tv_summery_user_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_summery_email"/>
+
+    <TextView
+        android:id="@+id/tv_summery_age"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="Tuổi"
+        android:textSize = "15sp"
+        android:gravity="center_vertical"
+        app:layout_constraintWidth_percent="1"
+        app:layout_constraintStart_toStartOf="@id/tv_summery_user_name"
+        app:layout_constraintEnd_toEndOf="@id/tv_summery_user_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_summery_sex"/>
+
+    <TextView
+        android:id="@+id/tv_summery_city"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="Thành phố"
+        android:textSize = "15sp"
+        android:gravity="center_vertical"
+        app:layout_constraintStart_toStartOf="@id/tv_summery_user_name"
+        app:layout_constraintEnd_toEndOf="@id/tv_summery_user_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_summery_age"/>
+
+    <TextView
+        android:id="@+id/tv_summery_district"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="Quận huyện"
+        android:textSize = "15sp"
+        android:gravity="center_vertical"
+        app:layout_constraintStart_toStartOf="@id/tv_summery_user_name"
+        app:layout_constraintEnd_toEndOf="@id/tv_summery_user_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_summery_city"/>
+
+    <EditText
+        android:id="@+id/et_summary_user_name"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:textSize="15sp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_summery_user_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/tv_summery_user_name" />
+
+    <EditText
+        android:id="@+id/et_summary_email"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize = "15sp"
+        android:gravity="center_vertical"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="@id/et_summary_user_name"
+        app:layout_constraintStart_toStartOf="@id/et_summary_user_name"
+        app:layout_constraintBottom_toBottomOf="@id/tv_summery_email"/>
+
+    <EditText
+        android:id="@+id/et_summary_sex"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:background="@android:color/transparent"
+        android:inputType="textPersonName"
+        android:textSize = "15sp"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="@id/et_summary_user_name"
+        app:layout_constraintStart_toStartOf="@id/et_summary_user_name"
+        app:layout_constraintBottom_toBottomOf="@id/tv_summery_sex"/>
+
+    <EditText
+        android:id="@+id/et_summary_age"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:background="@android:color/transparent"
+        android:textSize = "15sp"
+        android:gravity="center_vertical"
+        app:layout_constraintStart_toStartOf="@id/et_summary_user_name"
+        app:layout_constraintEnd_toEndOf="@id/et_summary_user_name"
+        app:layout_constraintBottom_toBottomOf="@id/tv_summery_age"/>
+
+    <EditText
+        android:id="@+id/et_summary_city"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:background="@android:color/transparent"
+        android:textSize = "15sp"
+        android:gravity="center_vertical"
+        app:layout_constraintStart_toStartOf="@id/et_summary_user_name"
+        app:layout_constraintEnd_toEndOf="@id/et_summary_user_name"
+        app:layout_constraintBottom_toBottomOf="@id/tv_summery_city"/>
+
+    <EditText
+        android:id="@+id/et_summery_district"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:background="@android:color/transparent"
+        android:textSize = "15sp"
+        android:gravity="center_vertical"
+        app:layout_constraintStart_toStartOf="@id/et_summary_user_name"
+        app:layout_constraintEnd_toEndOf="@id/et_summary_user_name"
+        app:layout_constraintBottom_toBottomOf="@id/tv_summery_district"/>
+
+    <Button
+        android:id="@+id/bt_summary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:textSize = "25sp"
+        app:layout_constraintWidth_percent="0.9"
+        android:layout_marginTop = "50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="100dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
