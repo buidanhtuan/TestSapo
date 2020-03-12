@@ -9,10 +9,7 @@ import com.example.sapomobile.model.District
 import com.example.sapomobile.model.User
 import kotlinx.android.synthetic.main.activity_summary.*
 
-/**
- * tại sao là open class
- */
-open class SummaryActivity : AppCompatActivity() {
+class SummaryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

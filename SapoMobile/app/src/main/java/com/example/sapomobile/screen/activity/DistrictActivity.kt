@@ -13,7 +13,7 @@ import com.example.sapomobile.model.City
 import com.example.sapomobile.model.District
 import com.example.sapomobile.model.DistrictData
 import com.example.sapomobile.model.ListDistrict
-import com.example.sapomobile.screen.adapter.DistrictAdapter
+import com.example.sapomobile.screen.adapter.AdapterBase
 import kotlinx.android.synthetic.main.activity_district.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,18 +42,25 @@ class DistrictActivity : AppCompatActivity(), OnClickItemListener {
                 if(list!=null){
                     for (i in 0 until list.size){
                         if(list[i].CityCode==City.CityCode){
-                            val dtr = DistrictData()
-                            dtr.CityCode = list[i].CityCode
-                            dtr.DistrictCode = list[i].DistrictCode
-                            dtr.DistrictName = list[i].DistrictName
+                            val dtr = DistrictData(list[i].CityCode
+                                ,list[i].DistrictName
+                                    ,list[i].DistrictCode)
                             listDistrict.add(dtr)
                         }
                     }
-                    rv_district.adapter = DistrictAdapter(listDistrict, c as DistrictActivity)
+                    rv_district.adapter = AdapterBase(getName(listDistrict), c as DistrictActivity)
                 }
             }
             override fun onFailure(call: Call<ListDistrict>, t: Throwable) {
             }
         })
+    }
+    fun getName(listDistrict: ArrayList<DistrictData>) : ArrayList<String>{
+        val listName : ArrayList<String> = ArrayList()
+        for (i in 0 until listDistrict.size){
+            val name  = listDistrict[i].DistrictName
+            listName.add(name)
+        }
+        return listName
     }
 }

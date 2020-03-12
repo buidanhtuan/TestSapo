@@ -12,12 +12,8 @@ import com.example.sapomobile.interfaces.OnClickItemListener
 import com.example.sapomobile.model.City
 import com.example.sapomobile.model.CityData
 import com.example.sapomobile.model.ListCity
-import com.example.sapomobile.screen.adapter.CityAdapter
+import com.example.sapomobile.screen.adapter.AdapterBase
 import kotlinx.android.synthetic.main.activity_city.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
 
 class CityActivity : AppCompatActivity(), OnClickItemListener{
     private val apiClient = ApiClient().getClient()?.create(ApiInterface::class.java)
@@ -32,20 +28,29 @@ class CityActivity : AppCompatActivity(), OnClickItemListener{
         val intent = Intent (this, DistrictActivity::class.java)
         City.CityName = listCity[position].CityName
         City.CityCode = listCity[position].CityCode
+        getCity(this)
         startActivity(intent)
     }
     private fun getCity(c : Context){
-        apiClient?.getCity()?.enqueue(object : Callback<ListCity>{
-            override fun onResponse(call: Call<ListCity>, response: Response<ListCity>) {
+        apiClient?.getCity()?.enqueue(object : retrofit2.Callback<ListCity> {
+            override fun onResponse(call: retrofit2.Call<ListCity>, response: retrofit2.Response<ListCity>) {
                 val city = response.body()
                 val list = city?.listCity
-                rv_city.adapter = list?.let { CityAdapter(it, c as CityActivity) }
+                rv_city.adapter = list?.let { AdapterBase(getName(it), c as CityActivity) }
                 if (list != null) {
                     listCity = list
                 }
             }
-            override fun onFailure(call: Call<ListCity>, t: Throwable) {}
+            override fun onFailure(call: retrofit2.Call<ListCity>, t: Throwable) {}
         })
+    }
+    fun getName(listCity: ArrayList<CityData>) : ArrayList<String>{
+        val listName : ArrayList<String> = ArrayList()
+        for (i in 0 until listCity.size){
+            val name  = listCity[i].CityName
+            listName.add(name)
+        }
+        return listName
     }
 }
 
