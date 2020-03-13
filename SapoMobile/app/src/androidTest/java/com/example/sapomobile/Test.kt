@@ -12,6 +12,8 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
+import com.example.sapomobile.model.CityData
+import com.example.sapomobile.model.DistrictData
 import com.example.sapomobile.screen.activity.SignUpActivity
 import com.example.sapomobile.screen.adapter.AdapterBase
 import com.shawnlin.numberpicker.NumberPicker
@@ -53,21 +55,20 @@ class Test {
         Espresso.onView(ViewMatchers.withId(R.id.rv_city))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         //City
-        //city = getChildValue(R.id.rv_city,position,R.id.tv_adapter)
+        city = getChildValue(R.id.rv_city,position,R.id.tv_adapter)
         Espresso.onView(ViewMatchers.withId(R.id.rv_city)).perform(ViewActions.swipeUp())
         Espresso.onView(ViewMatchers.withId(R.id.rv_city)).perform(ViewActions.swipeDown())
         Espresso.onView(ViewMatchers.withId(R.id.rv_city)).perform(
-            RecyclerViewActions.
-        actionOnItemAtPosition<AdapterBase.ViewHolder>(position, ViewActions.click()))
+            RecyclerViewActions.actionOnItemAtPosition<AdapterBase<CityData>.ViewHolder>(position, ViewActions.click()))
         Espresso.onView(ViewMatchers.withId(R.id.rv_district))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         //District
-        //district = getChildValue(R.id.rv_district,position,R.id.tv_adapter)
+        district = getChildValue(R.id.rv_district,position,R.id.tv_adapter)
         Espresso.onView(ViewMatchers.withId(R.id.rv_district)).perform(ViewActions.swipeUp())
         Espresso.onView(ViewMatchers.withId(R.id.rv_district)).perform(ViewActions.swipeDown())
         Espresso.onView(ViewMatchers.withId(R.id.rv_district)).perform(
             RecyclerViewActions.
-            actionOnItemAtPosition<AdapterBase.ViewHolder>(position, ViewActions.click()))
+            actionOnItemAtPosition<AdapterBase<DistrictData>.ViewHolder>(position, ViewActions.click()))
         Espresso.onView(ViewMatchers.withId(R.id.np_age))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         //Age
