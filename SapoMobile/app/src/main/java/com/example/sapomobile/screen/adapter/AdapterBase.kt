@@ -30,4 +30,6 @@ abstract class AdapterBase<T>(val list: ArrayList<T>, val onClickItemListener: O
             onClickItemListener.onClickItem(adapterPosition)
         }
     }
+    abstract fun updateList(newData:ArrayList<T>)
+    abstract fun getItemLayout(holder: ViewHolder):Int
 }
