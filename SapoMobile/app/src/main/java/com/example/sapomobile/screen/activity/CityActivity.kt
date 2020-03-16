@@ -10,38 +10,53 @@ import com.example.sapomobile.api.ApiClient
 import com.example.sapomobile.api.ApiInterface
 import com.example.sapomobile.interfaces.OnClickItemListener
 import com.example.sapomobile.model.City
-import com.example.sapomobile.model.CityData
 import com.example.sapomobile.model.ListCity
-import com.example.sapomobile.screen.adapter.CityAdapte
+import com.example.sapomobile.screen.adapter.CityAdapter
 import kotlinx.android.synthetic.main.activity_city.*
 
-class CityActivity : AppCompatActivity(), OnClickItemListener{
+class CityActivity : AppCompatActivity(), OnClickItemListener {
     private val apiClient = ApiClient().getClient()?.create(ApiInterface::class.java)
-    var listCity : ArrayList<CityData> = ArrayList()
+    private lateinit var adapter: CityAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_city)
-        rv_city.layoutManager = LinearLayoutManager(this)
-        getCity(this,0)
+        initView()
     }
+
     override fun onClickItem(position: Int) {
-        val intent = Intent (this, DistrictActivity::class.java)
-        City.CityName = listCity[position].CityName
-        City.CityCode = listCity[position].CityCode
-        getCity(this,position)
+        val intent = Intent(this, DistrictActivity::class.java)
+        val city=adapter.getItemPosition(position)
+        City.CityName =city.CityName
+        City.CityCode =city.CityCode
+        //TODO Xem lại đoạn lưu lại vị trí nha. Không ai reload lại layout trước khi next màn đâu
+        getCity(this, position)
         startActivity(intent)
     }
-    private fun getCity(c : Context,position: Int){
+
+    /**
+     * init view
+     */
+    private fun initView() {
+        rv_city.layoutManager = LinearLayoutManager(this)
+        adapter = CityAdapter(this)
+        rv_city.adapter = adapter
+        getCity(this, 0)
+
+    }
+
+    private fun getCity(c: Context, position: Int) {
         apiClient?.getCity()?.enqueue(object : retrofit2.Callback<ListCity> {
-            override fun onResponse(call: retrofit2.Call<ListCity>, response: retrofit2.Response<ListCity>) {
-                val city = response.body()
-                val list = city?.listCity
-                rv_city.adapter = list?.let {CityAdapte(it, c as CityActivity) }
-                if (list != null) {
-                    listCity = list
+            override fun onResponse(
+                call: retrofit2.Call<ListCity>,
+                response: retrofit2.Response<ListCity>
+            ) {
+                val cities = response.body()?.listCity
+                cities?.let {
+                    adapter.updateList(it)
+                    rv_city.scrollToPosition(position)
                 }
-                (rv_city.layoutManager as LinearLayoutManager).scrollToPosition(position)
             }
+
             override fun onFailure(call: retrofit2.Call<ListCity>, t: Throwable) {}
         })
     }

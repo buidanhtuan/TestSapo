@@ -1,6 +1,5 @@
 package com.example.sapomobile.screen.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -21,40 +20,45 @@ import retrofit2.Response
 
 class DistrictActivity : AppCompatActivity(), OnClickItemListener {
     private val apiClient = ApiClient().getClient()?.create(ApiInterface::class.java)
-    private var listDistrict: ArrayList<DistrictData> = ArrayList()
+    private lateinit var adapter: DistrictAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_district)
-        rv_district.layoutManager = LinearLayoutManager(this)
-        getDistrict(this,0)
+        initView()
+
     }
+
     override fun onClickItem(position: Int) {
-        District.DistrictName = listDistrict[position].DistrictName
-        District.DistrictCode = listDistrict[position].DistrictCode
-        val intent = Intent (this, AgeActivity::class.java)
-        getDistrict(this,position)
+        val district = adapter.getItemPosition(position)
+        District.DistrictName = district.DistrictName
+        District.DistrictCode = district.DistrictCode
+        val intent = Intent(this, AgeActivity::class.java)
+
+        //TODO Xem lại đoạn lưu lại vị trí nha. Không ai reload lại layout trước khi next màn đâu
+        getDistrict(position)
         startActivity(intent)
     }
-    private fun getDistrict(c : Context,position: Int){
-        apiClient?.getDistrict()?.enqueue(object : Callback<ListDistrict>{
+
+    /**
+     * init view
+     */
+    private fun initView() {
+        rv_district.layoutManager = LinearLayoutManager(this)
+        adapter = DistrictAdapter(this@DistrictActivity)
+        rv_district.adapter = adapter
+        getDistrict(0)
+    }
+
+    private fun getDistrict(position: Int) {
+        apiClient?.getDistrict()?.enqueue(object : Callback<ListDistrict> {
             override fun onResponse(call: Call<ListDistrict>, response: Response<ListDistrict>) {
-                val district = response.body()
-                val list = district?.listDistrict
-                val lD : ArrayList<DistrictData> = ArrayList()
-                if(list!=null){
-                    for (i in 0 until list.size){
-                        if(list[i].CityCode==City.CityCode){
-                            val dtr = DistrictData(list[i].CityCode
-                                ,list[i].DistrictName
-                                    ,list[i].DistrictCode)
-                            lD.add(dtr)
-                        }
-                    }
-                    listDistrict = lD
-                    rv_district.adapter = DistrictAdapter(listDistrict, c as DistrictActivity)
-                    (rv_district.layoutManager as LinearLayoutManager).scrollToPosition(position)
+                val districts = response.body()?.listDistrict
+                districts?.let { ls ->
+                    ls.groupBy { it.CityCode }[City.CityCode]
+                    rv_district.scrollToPosition(position)
                 }
             }
+
             override fun onFailure(call: Call<ListDistrict>, t: Throwable) {
             }
         })
