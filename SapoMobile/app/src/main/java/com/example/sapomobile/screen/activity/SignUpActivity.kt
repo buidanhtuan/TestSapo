@@ -22,7 +22,7 @@ class SignUpActivity : AppCompatActivity() {
             tv_main_report_password.text = User.password.checkPassword()
             tv_main_report_repeat_password.text = User.repeatPassword.checkRepeatPassword(User.password)
             val check: Boolean =check(User.userName, User.email, User.password, User.repeatPassword)
-            if(check){
+            if(!check){
                 val intent = Intent (this, CityActivity::class.java)
                 startActivity(intent)
             }

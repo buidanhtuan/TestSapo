@@ -22,26 +22,22 @@ class CityActivity : AppCompatActivity(), OnClickItemListener {
         setContentView(R.layout.activity_city)
         initView()
     }
-
-    override fun onClickItem(position: Int) {
-        val intent = Intent(this, DistrictActivity::class.java)
-        val city=adapter.getItemPosition(position)
-        City.CityName =city.CityName
-        City.CityCode =city.CityCode
-        //TODO Xem lại đoạn lưu lại vị trí nha. Không ai reload lại layout trước khi next màn đâu
-        getCity(this, position)
-        startActivity(intent)
-    }
-
-    /**
-     * init view
-     */
+//
+//    override fun onClickItem(position: Int) {
+//        val intent = Intent(this, DistrictActivity::class.java)
+//        val city=adapter.getItemPosition(position)
+//        City.CityName =city.CityName
+//        City.CityCode =city.CityCode
+//        //TODO Xem lại đoạn lưu lại vị trí nha. Không ai reload lại layout trước khi next màn đâu
+//        getCity(this, position)
+//        startActivity(intent)
+//    }
+//
     private fun initView() {
         rv_city.layoutManager = LinearLayoutManager(this)
         adapter = CityAdapter(this)
         rv_city.adapter = adapter
         getCity(this, 0)
-
     }
 
     private fun getCity(c: Context, position: Int) {

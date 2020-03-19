@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tv_summary_user_name" type="id" />
+    <item name="tv_summery_email" type="id" />
+    <item name="tv_summery_sex" type="id" />
+    <item name="tv_summery_age" type="id" />
+    <item name="tv_summery_city" type="id" />
+    <item name="et_summary_user_name" type="id" />
+</resources>
