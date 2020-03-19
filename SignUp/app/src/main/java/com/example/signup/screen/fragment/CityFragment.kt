@@ -1,6 +1,6 @@
 package com.example.signup.screen.fragment
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,13 +16,11 @@ import com.example.signup.interfaces.OnClickItemListener
 import com.example.signup.model.Account
 import com.example.signup.model.ListCity
 import com.example.signup.screen.adapter.CityAdapter
+import com.example.signup.utils.saveCityCode
+import com.example.signup.utils.saveCityPosition
 import kotlinx.android.synthetic.main.fragment_city.*
-import org.koin.core.qualifier.named
 
 class CityFragment : Fragment(), OnClickItemListener {
-    companion object{
-        var code = 0;
-    }
     private val apiClient = ApiClient().getClient()?.create(ApiInterface::class.java)
     private lateinit var adapter: CityAdapter
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -33,15 +31,12 @@ class CityFragment : Fragment(), OnClickItemListener {
         initView()
     }
     override fun onClickItem(position: Int) {
-        val city=adapter.getItemPosition(position)
-        code = city.code
-        var account : Account = Account()
-        account.city = city.name
+        val account = Account()
+        account.city = adapter.getItemPosition(position).name
         account.name = MainActivity.userName
         DatabaseHelper.update(account,"city")
-        for (i in 0 until DatabaseHelper.getAllData().size){
-            System.out.println(DatabaseHelper.getAllData()[i])
-        }
+        activity?.let { saveCityPosition(position, it) }
+        activity?.let { saveCityCode(adapter.getItemPosition(position).code,it) }
         (activity as MainActivity).setFragment(DistrictFragment())
     }
     private fun initView() {
@@ -50,8 +45,8 @@ class CityFragment : Fragment(), OnClickItemListener {
         rv_city.adapter = adapter
         getCity()
     }
-
     private fun getCity() {
+        val info = activity?.getSharedPreferences("infoUser", Context.MODE_PRIVATE)
         apiClient?.getCity()?.enqueue(object : retrofit2.Callback<ListCity> {
             override fun onResponse(
                 call: retrofit2.Call<ListCity>,
@@ -61,6 +56,7 @@ class CityFragment : Fragment(), OnClickItemListener {
                 cities?.let {
                     adapter.updateList(it)
                 }
+                (rv_city.layoutManager as LinearLayoutManager).scrollToPosition(info!!.getInt("cityPosition",0))
             }
             override fun onFailure(call: retrofit2.Call<ListCity>, t: Throwable) {}
         })

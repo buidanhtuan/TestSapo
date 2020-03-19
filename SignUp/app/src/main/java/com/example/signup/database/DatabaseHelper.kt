@@ -7,19 +7,11 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.example.signup.model.Account
 
-class DatabaseHelper(ctx: Context) : SQLiteOpenHelper(ctx, DatabaseConstan.DATABASE_NAME, null, DatabaseConstan.DATABASE_VERSION) {
+class DatabaseHelper(ctx: Context) : SQLiteOpenHelper(ctx, DatabaseConstant.DATABASE_NAME, null, DatabaseConstant.DATABASE_VERSION) {
     companion object {
         private lateinit var INSTANCE: DatabaseHelper
         private lateinit var database: SQLiteDatabase
         private var databaseOpen: Boolean = false
-        fun closeDatabase() {
-            if (database.isOpen && databaseOpen) {
-                database.close()
-                databaseOpen = false
-                Log.i("Database", "Database close")
-            }
-        }
-
         fun initDatabaseInstance(ctx: Context): DatabaseHelper {
             INSTANCE = DatabaseHelper(ctx)
             return INSTANCE
@@ -32,38 +24,16 @@ class DatabaseHelper(ctx: Context) : SQLiteOpenHelper(ctx, DatabaseConstan.DATAB
                 Log.i("Database", "Database Open")
             }
             val values = ContentValues()
-            values.put(DatabaseConstan.ROW_NAME, account.name)
-            values.put(DatabaseConstan.ROW_EMAIL, account.email)
-            values.put(DatabaseConstan.ROW_PASSWORD, account.password)
-            values.put(DatabaseConstan.ROW_CITY, account.city)
-            values.put(DatabaseConstan.ROW_DISTRICT, account.district)
-            values.put(DatabaseConstan.ROW_AGE, account.age)
-            values.put(DatabaseConstan.ROW_SEX, account.sex)
-            return database.insert(DatabaseConstan.DATABASE_TABEL, null, values)
+            values.put(DatabaseConstant.ROW_NAME, account.name)
+            values.put(DatabaseConstant.ROW_EMAIL, account.email)
+            values.put(DatabaseConstant.ROW_PASSWORD, account.password)
+            values.put(DatabaseConstant.ROW_CITY, account.city)
+            values.put(DatabaseConstant.ROW_DISTRICT, account.district)
+            values.put(DatabaseConstant.ROW_AGE, account.age)
+            values.put(DatabaseConstant.ROW_SEX, account.sex)
+            return database.insert(DatabaseConstant.DATABASE_TABEL, null, values)
         }
 
-        fun updateData(account: Account): Int {
-            if (!databaseOpen) {
-                database = INSTANCE.writableDatabase
-                databaseOpen = true
-
-                Log.i("Database", "Database Open")
-            }
-
-            val values = ContentValues()
-            values.put(DatabaseConstan.ROW_EMAIL, account.email)
-            values.put(DatabaseConstan.ROW_PASSWORD, account.password)
-            values.put(DatabaseConstan.ROW_CITY, account.city)
-            values.put(DatabaseConstan.ROW_DISTRICT, account.district)
-            values.put(DatabaseConstan.ROW_AGE, account.age)
-            values.put(DatabaseConstan.ROW_SEX, account.sex)
-            return database.update(
-                DatabaseConstan.DATABASE_TABEL,
-                values,
-                "${DatabaseConstan.ROW_NAME} = ${account.name}",
-                null
-            )
-        }
         fun update(account: Account,st : String): Int {
             if (!databaseOpen) {
                 database = INSTANCE.writableDatabase
@@ -73,20 +43,19 @@ class DatabaseHelper(ctx: Context) : SQLiteOpenHelper(ctx, DatabaseConstan.DATAB
             }
 
             val values = ContentValues()
-            if (st.contains("user")) values.put(DatabaseConstan.ROW_NAME, account.name)
-            if (st.contains("email")) values.put(DatabaseConstan.ROW_EMAIL, account.email)
-            if (st.contains("password")) values.put(DatabaseConstan.ROW_PASSWORD, account.password)
-            if (st.contains("city")) values.put(DatabaseConstan.ROW_CITY, account.city)
-            if (st.contains("district")) values.put(DatabaseConstan.ROW_DISTRICT, account.district)
-            if (st.contains("age")) values.put(DatabaseConstan.ROW_AGE, account.age)
-            if (st.contains("sex")) values.put(DatabaseConstan.ROW_SEX, account.sex)
+            if (st.contains("user")) values.put(DatabaseConstant.ROW_NAME, account.name)
+            if (st.contains("email")) values.put(DatabaseConstant.ROW_EMAIL, account.email)
+            if (st.contains("password")) values.put(DatabaseConstant.ROW_PASSWORD, account.password)
+            if (st.contains("city")) values.put(DatabaseConstant.ROW_CITY, account.city)
+            if (st.contains("district")) values.put(DatabaseConstant.ROW_DISTRICT, account.district)
+            if (st.contains("age")) values.put(DatabaseConstant.ROW_AGE, account.age)
+            if (st.contains("sex")) values.put(DatabaseConstant.ROW_SEX, account.sex)
             return database.update(
-                DatabaseConstan.DATABASE_TABEL,
+                DatabaseConstant.DATABASE_TABEL,
                 values,
-                "${DatabaseConstan.ROW_NAME} = ${account.name}",
+                "${DatabaseConstant.ROW_NAME} = ${account.name}",
                 null
             )
-            //return 0
         }
 
         fun getAllData(): MutableList<Account> {
@@ -98,19 +67,19 @@ class DatabaseHelper(ctx: Context) : SQLiteOpenHelper(ctx, DatabaseConstan.DATAB
             }
 
             val data: MutableList<Account> = ArrayList()
-            val cursor = database.rawQuery("SELECT * FROM ${DatabaseConstan.DATABASE_TABEL}", null)
+            val cursor = database.rawQuery("SELECT * FROM ${DatabaseConstant.DATABASE_TABEL}", null)
             cursor.use { cur ->
                 if (cursor.moveToFirst()) {
                     do {
 
                         val account = Account()
-                        account.name = cur.getString(cur.getColumnIndex(DatabaseConstan.ROW_NAME))
-                        account.email = cur.getString(cur.getColumnIndex(DatabaseConstan.ROW_EMAIL))
-                        account.password = cur.getString(cur.getColumnIndex(DatabaseConstan.ROW_PASSWORD))
-                        account.sex = cur.getString(cur.getColumnIndex(DatabaseConstan.ROW_SEX))
-                        account.city = cur.getString(cur.getColumnIndex(DatabaseConstan.ROW_CITY))
-                        account.district = cur.getString(cur.getColumnIndex(DatabaseConstan.ROW_DISTRICT))
-                        account.age = cur.getInt(cur.getColumnIndex(DatabaseConstan.ROW_AGE))
+                        account.name = cur.getString(cur.getColumnIndex(DatabaseConstant.ROW_NAME))
+                        account.email = cur.getString(cur.getColumnIndex(DatabaseConstant.ROW_EMAIL))
+                        account.password = cur.getString(cur.getColumnIndex(DatabaseConstant.ROW_PASSWORD))
+                        account.sex = cur.getString(cur.getColumnIndex(DatabaseConstant.ROW_SEX))
+                        account.city = cur.getString(cur.getColumnIndex(DatabaseConstant.ROW_CITY))
+                        account.district = cur.getString(cur.getColumnIndex(DatabaseConstant.ROW_DISTRICT))
+                        account.age = cur.getInt(cur.getColumnIndex(DatabaseConstant.ROW_AGE))
                         data.add(account)
 
                     } while (cursor.moveToNext())
@@ -118,31 +87,8 @@ class DatabaseHelper(ctx: Context) : SQLiteOpenHelper(ctx, DatabaseConstan.DATAB
             }
             return data
         }
-
-        fun deleteData(name: String): Int {
-            if (!databaseOpen) {
-                database = INSTANCE.writableDatabase
-                databaseOpen = true
-
-                Log.i("Database", "Database Open")
-            }
-            return database.delete(
-                DatabaseConstan.DATABASE_TABEL,
-                "${DatabaseConstan.ROW_NAME} = $name",
-                null
-            )
-        }
-        fun deleteAllData() {
-            if (!databaseOpen) {
-                database = INSTANCE.writableDatabase
-                databaseOpen = true
-
-                Log.i("Database", "Database Open")
-            }
-            database.delete(DatabaseConstan.DATABASE_TABEL,null,null)
-        }
         fun getData(name : String) : Account{
-            var account : Account = Account()
+            var account = Account()
             var data: MutableList<Account> = ArrayList()
             if (!databaseOpen) {
                 database = INSTANCE.writableDatabase
@@ -159,12 +105,63 @@ class DatabaseHelper(ctx: Context) : SQLiteOpenHelper(ctx, DatabaseConstan.DATAB
         }
     }
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL(DatabaseConstan.QUERY_CREATE)
+        db?.execSQL(DatabaseConstant.QUERY_CREATE)
         Log.i("DATABASE", "DATABASE CREATED")
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db?.execSQL(DatabaseConstan.QUERY_UPGRADE)
+        db?.execSQL(DatabaseConstant.QUERY_UPGRADE)
         Log.i("DATABASE", "DATABASE UPDATED")
+    }
+    fun closeDatabase() {
+        if (database.isOpen && databaseOpen) {
+            database.close()
+            databaseOpen = false
+            Log.i("Database", "Database close")
+        }
+    }
+    fun deleteData(name: String): Int {
+        if (!databaseOpen) {
+            database = INSTANCE.writableDatabase
+            databaseOpen = true
+
+            Log.i("Database", "Database Open")
+        }
+        return database.delete(
+            DatabaseConstant.DATABASE_TABEL,
+            "${DatabaseConstant.ROW_NAME} = $name",
+            null
+        )
+    }
+    fun deleteAllData() {
+        if (!databaseOpen) {
+            database = INSTANCE.writableDatabase
+            databaseOpen = true
+
+            Log.i("Database", "Database Open")
+        }
+        database.delete(DatabaseConstant.DATABASE_TABEL,null,null)
+    }
+    fun updateData(account: Account): Int {
+        if (!databaseOpen) {
+            database = INSTANCE.writableDatabase
+            databaseOpen = true
+
+            Log.i("Database", "Database Open")
+        }
+
+        val values = ContentValues()
+        values.put(DatabaseConstant.ROW_EMAIL, account.email)
+        values.put(DatabaseConstant.ROW_PASSWORD, account.password)
+        values.put(DatabaseConstant.ROW_CITY, account.city)
+        values.put(DatabaseConstant.ROW_DISTRICT, account.district)
+        values.put(DatabaseConstant.ROW_AGE, account.age)
+        values.put(DatabaseConstant.ROW_SEX, account.sex)
+        return database.update(
+            DatabaseConstant.DATABASE_TABEL,
+            values,
+            "${DatabaseConstant.ROW_NAME} = ${account.name}",
+            null
+        )
     }
 }

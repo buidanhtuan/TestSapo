@@ -10,9 +10,7 @@ import com.example.signup.R
 import com.example.signup.database.DatabaseHelper
 import com.example.signup.interfaces.OnClickItemListener
 import com.example.signup.model.Account
-import kotlinx.android.synthetic.main.fragment_summary.*
 import kotlinx.android.synthetic.main.fragment_summary.view.*
-import kotlinx.android.synthetic.main.fragment_summary.view.et_summary_user_name
 
 class SummaryFragment :  Fragment(), OnClickItemListener {
     private var dataDaftarMahasiswa: MutableList<Account> = ArrayList()
@@ -26,8 +24,7 @@ class SummaryFragment :  Fragment(), OnClickItemListener {
     }
     private fun setData(view : View){
         dataDaftarMahasiswa = DatabaseHelper.getAllData()
-        var account = Account()
-        account = DatabaseHelper.getData(MainActivity.userName)
+        val account: Account = DatabaseHelper.getData(MainActivity.userName)
         view.et_summary_user_name.setText(account.name)
         view.et_summary_email.setText(account.email)
         view.et_summary_city.setText(account.city)

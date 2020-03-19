@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_age.view.*
 class AgeFragment :  Fragment(), OnClickItemListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_age, container, false)
-        var account : Account = Account()
+        val account = Account()
         view.rg_age.setOnCheckedChangeListener { _, checkedId ->
             if(R.id.radioButton==checkedId)   account.sex = "Nam"
             if(R.id.radioButton==checkedId)   account.sex = "Nam"

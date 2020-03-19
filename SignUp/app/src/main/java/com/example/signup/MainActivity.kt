@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         val registerFragment = SignUp()
         fTransaction.add(R.id.frag,registerFragment)
         fTransaction.commit()
+
         DatabaseHelper.initDatabaseInstance(this)
     }
     fun setFragment(fragment: Fragment){
