@@ -39,6 +39,9 @@ class CityFragment : Fragment(), OnClickItemListener {
         account.city = city.name
         account.name = MainActivity.userName
         DatabaseHelper.update(account,"city")
+        for (i in 0 until DatabaseHelper.getAllData().size){
+            System.out.println(DatabaseHelper.getAllData()[i])
+        }
         (activity as MainActivity).setFragment(DistrictFragment())
     }
     private fun initView() {

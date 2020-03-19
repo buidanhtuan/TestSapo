@@ -13,5 +13,5 @@ data class Account(var name: String,
                    var district : String,
                    var age : Int,
                    var sex : String): Parcelable {
-    constructor() : this("", "", "", "","",0,"")
+    constructor() : this("", "", "", "","",25,"nam")
 }

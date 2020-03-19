@@ -86,6 +86,7 @@ class DatabaseHelper(ctx: Context) : SQLiteOpenHelper(ctx, DatabaseConstan.DATAB
                 "${DatabaseConstan.ROW_NAME} = ${account.name}",
                 null
             )
+            //return 0
         }
 
         fun getAllData(): MutableList<Account> {
